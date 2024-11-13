@@ -1,5 +1,8 @@
 pipeline{
    agent any
+   environment{
+      DOCKERHUB_CREDENTIALS = credentials("docker-hub")
+   }
    stages {
       stage("Permission"){
            steps{
@@ -42,5 +45,21 @@ pipeline{
                sh "docker build -t calculator ."
            }
        }
+       stage("Docker Image Build"){
+        steps{
+            sh "docker build -t bestlalala/board ."
+        }
+       }
+       stage('docker hub login'){
+        steps{
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        }
+       }
+       stage('docker hub push'){
+        steps{
+            sh 'docker push bestlalala/calculator:latest'
+        }
+       }
+
    }
 }
