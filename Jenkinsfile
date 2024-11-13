@@ -52,7 +52,7 @@ pipeline{
        }
        stage('docker hub push'){
             steps{
-                sh 'docker push bestlalala/calculator:latest'
+                sh 'docker push bestlalala/board:latest'
             }
        }
 
